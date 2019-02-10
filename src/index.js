@@ -33,30 +33,6 @@ async function main () {
   // Middlewares
   middlewares(app)
   
-  app.use(cors())
-
-  app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5004/');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
-
-  // Host the schemas as static file
-  app.use('/schemas', express.static(path.join(__dirname, 'schema')))
-
   // Initialize dependencies
   const db = await Database(config.get('db'))
 
@@ -97,8 +73,8 @@ app.use(paymentService.basePath, paymentService.route)
   // have, such as databases/redis connection. It can be a simple PING to the database.
   // app.get('/health', function () {...})
 
-  app.listen(config.get('port'), () => {
-    console.log(`listening to port *:${config.get('port')}. press ctrl + c to cancel`)
+  app.listen(5003, () => {
+    console.log(`listening to port *:5003. press ctrl + c to cancel`)
   })
 
   return app
